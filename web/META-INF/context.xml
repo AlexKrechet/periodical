@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/Eshop1">
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <Resource name="jdbc/MySQLDataSource" auth="Container" type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/eshop1"
+              connectionProperties="useUnicode=yes;characterEncoding=utf8;"
+              username="root" password="kA500asvB1QtaiSDXrxT" maxTotal="20" maxIdle="10" maxWaitMillis="-1" />
+</Context>
