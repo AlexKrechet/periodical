@@ -2,7 +2,7 @@ package ua.andrii.project_19.dao.impl;
 
 import com.sun.istack.internal.NotNull;
 import org.apache.log4j.Logger;
-import ua.andrii.project_19.dao.PublisherDao;
+import ua.andrii.project_19.dao.ItemsDao;
 import ua.andrii.project_19.entity.Publisher;
 
 import javax.sql.DataSource;
@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PublisherDaoImpl implements PublisherDao {
+public class PublisherDaoImpl implements ItemsDao<Publisher> {
 
     private static final Logger logger = Logger.getLogger(PublisherDaoImpl.class);
     private DataSource datasource;

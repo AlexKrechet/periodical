@@ -2,7 +2,7 @@ package ua.andrii.project_19.dao.impl;
 
 import com.sun.istack.internal.NotNull;
 import org.apache.log4j.Logger;
-import ua.andrii.project_19.dao.PeriodicalDao;
+import ua.andrii.project_19.dao.ItemsDao;
 import ua.andrii.project_19.entity.Periodical;
 import ua.andrii.project_19.entity.Publisher;
 
@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeriodicalDaoImpl implements PeriodicalDao {
+public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
 
     private static final Logger logger = Logger.getLogger(PeriodicalDaoImpl.class);
     private DataSource datasource;

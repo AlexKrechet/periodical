@@ -1,14 +1,9 @@
 package ua.andrii.project_19.service;
 
 import com.sun.istack.internal.NotNull;
-import ua.andrii.project_19.dao.OrderDao;
-import ua.andrii.project_19.dao.PeriodicalDao;
-import ua.andrii.project_19.dao.PublisherDao;
+import ua.andrii.project_19.dao.ItemsDao;
 import ua.andrii.project_19.dao.UserDao;
-import ua.andrii.project_19.entity.Order;
-import ua.andrii.project_19.entity.Periodical;
-import ua.andrii.project_19.entity.PeriodicalOrder;
-import ua.andrii.project_19.entity.User;
+import ua.andrii.project_19.entity.*;
 import ua.andrii.project_19.exception.WrongOrderDataException;
 
 import java.math.BigDecimal;
@@ -19,11 +14,11 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
 
     private UserDao userDao;
-    private PeriodicalDao periodicalDao;
-    private PublisherDao publisherDao;
-    private OrderDao orderDao;
+    private ItemsDao<Periodical> periodicalDao;
+    private ItemsDao<Publisher> publisherDao;
+    private ItemsDao<Order> orderDao;
 
-    public ClientServiceImpl(@NotNull UserDao userDao, @NotNull PeriodicalDao periodicalDao, @NotNull PublisherDao publisherDao, @NotNull OrderDao orderDao) {
+    public ClientServiceImpl(@NotNull UserDao userDao, @NotNull ItemsDao periodicalDao, @NotNull ItemsDao publisherDao, @NotNull ItemsDao orderDao) {
         this.userDao = userDao;
         this.periodicalDao = periodicalDao;
         this.publisherDao = publisherDao;

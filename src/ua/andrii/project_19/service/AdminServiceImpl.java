@@ -1,9 +1,7 @@
 package ua.andrii.project_19.service;
 
 import com.sun.istack.internal.NotNull;
-import ua.andrii.project_19.dao.OrderDao;
-import ua.andrii.project_19.dao.PeriodicalDao;
-import ua.andrii.project_19.dao.PublisherDao;
+import ua.andrii.project_19.dao.ItemsDao;
 import ua.andrii.project_19.dao.UserDao;
 import ua.andrii.project_19.entity.*;
 import ua.andrii.project_19.enums.UserType;
@@ -18,12 +16,12 @@ import java.util.regex.Pattern;
 
 public class AdminServiceImpl implements AdminService {
 
-    private UserDao userDao;
-    private PeriodicalDao periodicalDao;
-    private PublisherDao publisherDao;
-    private OrderDao orderDao;
+    private UserDao<User> userDao;
+    private ItemsDao<Periodical> periodicalDao;
+    private ItemsDao<Publisher> publisherDao;
+    private ItemsDao<Order> orderDao;
 
-    public AdminServiceImpl(@NotNull UserDao userDao, @NotNull PeriodicalDao periodicalDao, @NotNull PublisherDao publisherDao, @NotNull OrderDao orderDao) {
+    public AdminServiceImpl(@NotNull UserDao userDao, @NotNull ItemsDao periodicalDao, @NotNull ItemsDao publisherDao, @NotNull ItemsDao orderDao) {
         this.userDao = userDao;
         this.periodicalDao = periodicalDao;
         this.publisherDao = publisherDao;
@@ -31,7 +29,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Client> getClients() {
+    public List<User> getClients() {
         return userDao.getClients();
     }
 

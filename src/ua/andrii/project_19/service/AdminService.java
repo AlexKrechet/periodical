@@ -64,7 +64,7 @@ public interface AdminService {
      *
      * @return list of Client objects
      */
-    List<Client> getClients();
+    List<User> getClients();
 
     /**
      * Returns a User object by given id.

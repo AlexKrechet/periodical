@@ -1,14 +1,15 @@
 package ua.andrii.project_19.factory;
 
 import org.apache.log4j.Logger;
-import ua.andrii.project_19.dao.OrderDao;
-import ua.andrii.project_19.dao.PeriodicalDao;
-import ua.andrii.project_19.dao.PublisherDao;
-import ua.andrii.project_19.dao.UserDao;
+import ua.andrii.project_19.dao.*;
 import ua.andrii.project_19.dao.impl.OrderDaoImpl;
 import ua.andrii.project_19.dao.impl.PeriodicalDaoImpl;
 import ua.andrii.project_19.dao.impl.PublisherDaoImpl;
 import ua.andrii.project_19.dao.impl.UserDaoImpl;
+import ua.andrii.project_19.entity.Order;
+import ua.andrii.project_19.entity.Periodical;
+import ua.andrii.project_19.entity.Publisher;
+import ua.andrii.project_19.entity.User;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -19,10 +20,10 @@ public class JdbcDaoFactory extends DaoFactory {
 
     private static final Logger logger = Logger.getLogger(JdbcDaoFactory.class);
     private static JdbcDaoFactory instance;
-    private UserDao userDao;
-    private PeriodicalDao periodicalDao;
-    private OrderDao orderDao;
-    private PublisherDao publisherDao;
+    private UserDao<User> userDao;
+    private ItemsDao<Periodical> periodicalDao;
+    private ItemsDao<Order> orderDao;
+    private ItemsDao<Publisher> publisherDao;
 
     private JdbcDaoFactory() {
         try {
@@ -48,20 +49,20 @@ public class JdbcDaoFactory extends DaoFactory {
     }
 
     @Override
-    public UserDao getUserDao() {
+    public UserDao<User> getUserDao() {
         return userDao;
     }
 
     @Override
-    public PeriodicalDao getPeriodicalDao() {
+    public ItemsDao getPeriodicalDao() {
         return periodicalDao;
     }
 
     @Override
-    public OrderDao getOrderDao() {
+    public ItemsDao getOrderDao() {
         return orderDao;
     }
 
     @Override
-    public PublisherDao getPublisherDao() { return publisherDao; }
+    public ItemsDao getPublisherDao() { return publisherDao; }
 }

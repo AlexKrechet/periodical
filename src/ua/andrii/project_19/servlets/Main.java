@@ -2,10 +2,7 @@ package ua.andrii.project_19.servlets;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
-import ua.andrii.project_19.dao.OrderDao;
-import ua.andrii.project_19.dao.PeriodicalDao;
-import ua.andrii.project_19.dao.PublisherDao;
-import ua.andrii.project_19.dao.UserDao;
+import ua.andrii.project_19.dao.*;
 import ua.andrii.project_19.dao.impl.OrderDaoImpl;
 import ua.andrii.project_19.dao.impl.PeriodicalDaoImpl;
 import ua.andrii.project_19.dao.impl.PublisherDaoImpl;
@@ -48,7 +45,7 @@ public class Main {
         datasource.setPoolProperties(p);
 
         Publisher publisher = new Publisher("Publisher");
-        PublisherDao publisherDao = new PublisherDaoImpl(datasource);
+        ItemsDao<Publisher> publisherDao = new PublisherDaoImpl(datasource);
         System.out.println(publisher);
         System.out.println(publisherDao.create(publisher));
         System.out.println(publisherDao.create(publisher));
@@ -76,7 +73,7 @@ public class Main {
 
         Periodical periodical = new Periodical("Maxim", publisher, new BigDecimal(120.99));
         Periodical periodical2 = new Periodical("Day", publisher, new BigDecimal(19.99));
-        PeriodicalDao periodicalDao = new PeriodicalDaoImpl(datasource);
+        ItemsDao<Periodical> periodicalDao = new PeriodicalDaoImpl(datasource);
         System.out.println(periodicalDao.create(periodical));
         System.out.println(periodicalDao.create(periodical2));
 
@@ -102,7 +99,7 @@ public class Main {
 
         order.setTotal_price(sum);
 
-        OrderDao orderDao = new OrderDaoImpl(datasource);
+        ItemsDao<Order> orderDao = new OrderDaoImpl(datasource);
         orderDao.create(order);
         System.out.println("*****************");
         //System.out.println(orderDao.delete(order));

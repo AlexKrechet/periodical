@@ -4,22 +4,23 @@ package ua.andrii.project_19.dao;
 import ua.andrii.project_19.entity.Client;
 import ua.andrii.project_19.entity.User;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface UserDao {
-    Long create(User user);
+public interface UserDao<T> {
+    Long create(T t);
 
-    User read(Long id);
+    T read(Long id);
 
-    boolean update(User user);
+    boolean update(T t);
 
-    boolean delete(User user);
+    boolean delete(T t);
 
-    List<User> findAll();
+    List<T> findAll();
 
-    User getUser(String login, String password);
+    T getUser(String login, String password);
 
     boolean hasUser(String login);
 
-    List<Client> getClients();
+    List<T> getClients();
 }

@@ -9,11 +9,12 @@ import ua.andrii.project_19.entity.User;
 import ua.andrii.project_19.enums.UserType;
 
 import javax.sql.DataSource;
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl implements UserDao<User> {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
     private DataSource datasource;
     private final String SQL_BASE_QUERY_SELECTION_TEXT = "SELECT * FROM Users";
@@ -160,10 +161,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<Client> getClients() {
+    public List<User> getClients() {
         String query_text = SQL_BASE_QUERY_SELECTION_TEXT + " WHERE user_type = ?";
         logger.info(query_text);
-        List<Client> list = new ArrayList<>();
+        List<User> list = new ArrayList<>();
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setString(1, UserType.CLIENT.toString());
             ResultSet result = statement.executeQuery();

@@ -2,7 +2,7 @@ package ua.andrii.project_19.dao.impl;
 
 import com.sun.istack.internal.NotNull;
 import org.apache.log4j.Logger;
-import ua.andrii.project_19.dao.OrderDao;
+import ua.andrii.project_19.dao.ItemsDao;
 import ua.andrii.project_19.entity.*;
 import ua.andrii.project_19.enums.UserType;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl implements ItemsDao<Order> {
 
     private static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
     private DataSource datasource;
