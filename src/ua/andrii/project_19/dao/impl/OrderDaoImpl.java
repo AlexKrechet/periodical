@@ -34,11 +34,10 @@ public class OrderDaoImpl implements ItemsDao<Order> {
         String query_text = "INSERT INTO orders (total_price, purchase_date, user_id, paid) VALUES (?, ?, ?, ?)";//TODO: Constants everywhere if possible
         logger.info(query_text);
         Long id = null;
-        //TODO: Independent methods where the body is too masive
-        //TODO: Correction of naming for not digits
+
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS)) {
             connection.setAutoCommit(false);
-            statement.setBigDecimal(1, order.getTotal_price());
+            statement.setBigDecimal(1, order.getTotalPrice());
             statement.setTimestamp(2, new Timestamp(order.getPurchaseDate().getTime()));
             statement.setLong(3, order.getUser().getId());
             statement.setBoolean(4, order.isPaid());
@@ -58,11 +57,10 @@ public class OrderDaoImpl implements ItemsDao<Order> {
             return id;
         } catch (SQLException e) {
             logger.error("Failed to insert into Orders! " + e.getMessage());
-            return null; //TODO: should throw new DB Access exception for case if DB falling
+            return null;
         }
     }
 
-    //TODO: where to push <>
     private boolean createPeriodicalOrderList(Connection connection, Order order, List<PeriodicalOrder> periodicalOrders) {
         int result = 0;
         for (PeriodicalOrder periodicalOrder : periodicalOrders) {
@@ -113,7 +111,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
         logger.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
 
-            statement.setBigDecimal(1, order.getTotal_price());
+            statement.setBigDecimal(1, order.getTotalPrice());
             statement.setTimestamp(2, new Timestamp(order.getPurchaseDate().getTime()));
             statement.setLong(3, order.getUser().getId());
             statement.setBoolean(4, order.isPaid());
@@ -186,8 +184,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
             User user = User.getUser(login, password, name, surname, isBlocked, userType);
             user.setId(userId);
 
-            //Order order = new Order(getPeriodicalOrdersFromResultSet(result), user, purchaseDate, paid, totalPrice);
-            Order order = new Order(null, user, purchaseDate, paid, totalPrice);
+            Order order = new Order.Builder().withListPeriodicals(null).withUser(user).withTimestamp(purchaseDate).withPaidStatus(paid).withPrice(totalPrice).build();
             order.setId(orderId);
             orders.add(order);
         }
@@ -214,7 +211,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
             User user = User.getUser(login, password, name, surname, isBlocked, userType);
             user.setId(userId);
 
-            Order order = new Order(getPeriodicalOrdersFromResultSet(result), user, purchaseDate, paid, totalPrice);
+            Order order = new Order.Builder().withListPeriodicals(getPeriodicalOrdersFromResultSet(result)).withUser(user).withTimestamp(purchaseDate).withPaidStatus(paid).withPrice(totalPrice).build();
             order.setId(orderId);
             orders.add(order);
         }
@@ -227,7 +224,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
 
             Long publisherId = result.getLong("periodical.publisher_id");
             String publisherName = result.getString("publisher.name");
-            Publisher publisher = new Publisher(publisherName);
+            Publisher publisher = new Publisher.Builder().withName(publisherName).build();
 
             publisher.setId(publisherId);
 
@@ -239,7 +236,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
             Periodical periodical = new Periodical(name, publisher, price);
             periodical.setId(periodicalId);
 
-            PeriodicalOrder periodicalOrder = new PeriodicalOrder(periodical, periodicalQuantity);
+            PeriodicalOrder periodicalOrder = new PeriodicalOrder.Builder().withPeriodical(periodical).withQuantity(periodicalQuantity).build();
             periodicalOrders.add(periodicalOrder);
         }
         return periodicalOrders;

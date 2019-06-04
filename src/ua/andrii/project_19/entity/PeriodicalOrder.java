@@ -6,9 +6,26 @@ public class PeriodicalOrder {
     private Periodical periodical;
     private int periodicalQuantity;
 
-    public PeriodicalOrder(@NotNull Periodical periodical, @NotNull int periodicalQuantity) {
-        this.periodical = periodical;
-        this.periodicalQuantity = periodicalQuantity;
+    public static class Builder {
+        private PeriodicalOrder newPeriodicalOrder;
+
+        public Builder() {
+            newPeriodicalOrder = new PeriodicalOrder();
+        }
+
+        public Builder withPeriodical(@NotNull Periodical periodical) {
+            newPeriodicalOrder.periodical = periodical;
+            return this;
+        }
+
+        public Builder withQuantity(@NotNull int periodicalQuantity) {
+            newPeriodicalOrder.periodicalQuantity = periodicalQuantity;
+            return this;
+        }
+
+        public PeriodicalOrder build() {
+            return newPeriodicalOrder;
+        }
     }
 
     public Periodical getPeriodical() {

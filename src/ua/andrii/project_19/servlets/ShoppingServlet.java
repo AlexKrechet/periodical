@@ -19,19 +19,6 @@ public class ShoppingServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(ShoppingServlet.class);
     private ResourceBundle servletProperties = ResourceBundle.getBundle("resource.servlet_config");
 
-    //TODO:Resource constant from capital letters
-//    @Override
-//    public void init() throws ServletException {
-//        logger.info("Initializing Main Controller");
-//        super.init();
-//    }
-//    //TODO:Get away initial
-//
-//    @Override
-//    public void destroy() {
-//        super.destroy();
-//    }
-
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.debug("POST request: " + request.getPathInfo());

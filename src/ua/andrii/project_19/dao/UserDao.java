@@ -1,10 +1,5 @@
 package ua.andrii.project_19.dao;
 
-
-import ua.andrii.project_19.entity.Client;
-import ua.andrii.project_19.entity.User;
-
-import java.io.Serializable;
 import java.util.List;
 
 public interface UserDao<T> {

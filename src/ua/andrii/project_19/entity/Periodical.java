@@ -1,6 +1,7 @@
 package ua.andrii.project_19.entity;
 
 import com.sun.istack.internal.NotNull;
+
 import java.math.BigDecimal;
 
 public class Periodical {
@@ -9,7 +10,7 @@ public class Periodical {
     private Publisher publisher;
     private BigDecimal price = new BigDecimal("0.00").setScale(2, BigDecimal.ROUND_CEILING);
 
-    public Periodical(@NotNull String name, @NotNull  Publisher publisher, @NotNull BigDecimal price) {
+    public Periodical(@NotNull String name, @NotNull Publisher publisher, @NotNull BigDecimal price) {
         this.name = name;
         this.publisher = publisher;
         this.price = price;
@@ -71,6 +72,7 @@ public class Periodical {
                 ", price=" + price +
                 '}';
     }
+
     public String getPresentation() {
         return getId() + " | " + getName() + " | " + getPublisher().getId() + " | " + getPublisher().getName() + " | " + getPrice();
     }

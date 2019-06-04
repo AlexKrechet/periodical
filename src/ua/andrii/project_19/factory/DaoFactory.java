@@ -9,8 +9,11 @@ import ua.andrii.project_19.enums.DaoType;
 
 public abstract class DaoFactory {
     public abstract UserDao getUserDao();
+
     public abstract ItemsDao<Periodical> getPeriodicalDao();
+
     public abstract ItemsDao<Order> getOrderDao();
+
     public abstract ItemsDao<Publisher> getPublisherDao();
 
 

@@ -122,7 +122,7 @@ public class UpdatePeriodicalInfoAdminCommand extends Command {
     }
 
     private Publisher GetPublisherFromRequest(HttpServletRequest request) {
-        String items = request.getParameter("periodical.publisher_selected");
+        String items = request.getParameter("periodicals.publisher_selected");
         StringTokenizer t = new StringTokenizer(items, "|");
         String itemId = t.nextToken();
 

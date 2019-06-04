@@ -66,11 +66,11 @@ public class AddToCartCommand extends Command {
         String publisherName = t.nextToken();
         String price = t.nextToken();
         price = price.replace('$', ' ').trim();
-        Publisher publisher = new Publisher(publisherName);
+        Publisher publisher = new Publisher.Builder().withName(publisherName).build();
         publisher.setId(new Long(publisherId.trim()).longValue());
         Periodical periodical = new Periodical(periodicalName, publisher, new BigDecimal(price));
         periodical.setId(new Long(periodicalId.trim()).longValue());
-        PeriodicalOrder periodicalOrder = new PeriodicalOrder(periodical, new Integer(qty.trim()));
+        PeriodicalOrder periodicalOrder = new PeriodicalOrder.Builder().withPeriodical(periodical).withQuantity(new Integer(qty.trim())).build();
         return periodicalOrder;
     }
 }

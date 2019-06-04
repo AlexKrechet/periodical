@@ -51,7 +51,6 @@ public class AdminServiceImpl implements AdminService {
         }
         return userDao.getUser(login, password);
     }
-//TODO: Separate User validator for Apache commands Strings
 
     /**
      * @throws RegistrationException {@inheritDoc}
@@ -133,8 +132,8 @@ public class AdminServiceImpl implements AdminService {
         if (password.isEmpty()) {
             throw new WrongUserDataException("Password is a required field!");
         }
-        if (password.length() < 6) {
-            throw new WrongUserDataException("Password must be 6 symbols minimum");
+        if (password.length() < 8) {
+            throw new WrongUserDataException("Password must be 8 symbols minimum");
         }
         Pattern pattern = Pattern.compile("[a-zA-Z]|[\\u0400-\\u044F]");
         Matcher matcher = pattern.matcher(password);
@@ -176,7 +175,6 @@ public class AdminServiceImpl implements AdminService {
             throw new WrongUserDataException(dataName + " can't be empty!");
         }
     }
-
 
     @Override
     public List<User> getUsers() {
@@ -230,7 +228,7 @@ public class AdminServiceImpl implements AdminService {
         if (publisherName.isEmpty()) {
             throw new WrongPublisherDataException("Publisher's name is a required field!");
         }
-        Publisher publisher = new Publisher(publisherName);
+        Publisher publisher = new Publisher.Builder().withName(publisherName).build();
 
         return publisherDao.create(publisher) != null;
     }
@@ -262,7 +260,7 @@ public class AdminServiceImpl implements AdminService {
         if (periodicalOrder.isEmpty()) {
             throw new WrongOrderDataException("List is empty!");
         }
-        Order order = new Order(periodicalOrder, user, new Timestamp(new Date().getTime()), false, totalPrice);
+        Order order = new Order.Builder().withListPeriodicals(periodicalOrder).withUser(user).withTimestamp(new Timestamp(new Date().getTime())).withPaidStatus(false).withPrice(totalPrice).build();
 
         return orderDao.create(order) != null;
     }

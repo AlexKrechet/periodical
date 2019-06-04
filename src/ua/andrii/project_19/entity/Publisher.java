@@ -6,8 +6,21 @@ public class Publisher {
     private Long id;
     private String name;
 
-    public Publisher(@NotNull String name) {
-        this.name = name;
+    public static class Builder {
+        private Publisher newPublisher;
+
+        public Builder() {
+            newPublisher = new Publisher();
+        }
+
+        public Builder withName(@NotNull String name) {
+            newPublisher.name = name;
+            return this;
+        }
+
+        public Publisher build() {
+            return newPublisher;
+        }
     }
 
     public Long getId() {

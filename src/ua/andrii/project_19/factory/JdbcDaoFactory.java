@@ -64,5 +64,7 @@ public class JdbcDaoFactory extends DaoFactory {
     }
 
     @Override
-    public ItemsDao getPublisherDao() { return publisherDao; }
+    public ItemsDao getPublisherDao() {
+        return publisherDao;
+    }
 }

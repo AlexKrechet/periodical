@@ -12,7 +12,7 @@ public abstract class User implements Serializable {
     private String name;
     private String surname;
     private boolean isBlocked;
-//TODO: NotNULL for boolean + validation for boolean FINAL in case if its possible
+
     public User(@NotNull String login, @NotNull String password, @NotNull String name, @NotNull String surname, @NotNull boolean isBlocked) {
         this(login, password, name, surname);
         this.isBlocked = isBlocked;
@@ -29,7 +29,6 @@ public abstract class User implements Serializable {
         this.login = login;
         this.password = password;
     }
-
 
     public Long getId() {
         return id;

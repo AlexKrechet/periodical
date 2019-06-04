@@ -20,7 +20,7 @@ public class Admin extends User {
 
     @Override
     public String toString() {
-        String isBlockedText =  getIsBlocked() ?  "Denied" : "Allowed";
+        String isBlockedText = getIsBlocked() ? "Denied" : "Allowed";
         return "Admin{" +
                 "id=" + getId() +
                 ", login='" + getLogin() + '\'' +

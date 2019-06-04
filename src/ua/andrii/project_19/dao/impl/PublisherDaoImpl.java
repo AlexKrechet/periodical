@@ -29,7 +29,7 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
 
             statement.executeUpdate();
             ResultSet result = statement.getGeneratedKeys();
-            if(result.next()) {
+            if (result.next()) {
                 long id = result.getLong(1);
                 publisher.setId(id);
                 return id;
@@ -111,7 +111,7 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
             long id = result.getLong("id");
             String name = result.getString("name");
 
-            Publisher publisher = new Publisher(name);
+            Publisher publisher = new Publisher.Builder().withName(name).build();
             publisher.setId(id);
             publishers.add(publisher);
         }

@@ -21,7 +21,7 @@ public class Client extends User {
 
     @Override
     public String toString() {
-        String isBlockedText =  getIsBlocked() ?  "Denied" : "Allowed";
+        String isBlockedText = getIsBlocked() ? "Denied" : "Allowed";
         return "Client{" +
                 "id=" + getId() +
                 ", login='" + getLogin() + '\'' +

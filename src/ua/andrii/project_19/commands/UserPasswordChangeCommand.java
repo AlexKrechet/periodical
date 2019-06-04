@@ -7,7 +7,7 @@ import ua.andrii.project_19.service.AdminService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UserPasswordChangeCommand extends Command{
+public class UserPasswordChangeCommand extends Command {
 
     private static final Logger logger = Logger.getLogger(AdminService.class);
 

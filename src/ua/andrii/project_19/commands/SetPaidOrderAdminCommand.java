@@ -24,7 +24,6 @@ public class SetPaidOrderAdminCommand extends Command {
         HttpSession session = request.getSession(true);
 
         List ordersList = (List) session.getAttribute("orderslist");
-        //List ordersList=(List) request.getAttribute("orderslist");
 
         String del = request.getParameter("paidindex");
         int index = (new Integer(del)).intValue();
@@ -47,7 +46,6 @@ public class SetPaidOrderAdminCommand extends Command {
         }
 
         session.setAttribute("orderslist", ordersList);
-        //request.setAttribute("orderslist", ordersList);
 
         return "/admin_orders.jsp";
     }

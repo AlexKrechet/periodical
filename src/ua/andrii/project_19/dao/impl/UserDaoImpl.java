@@ -23,7 +23,6 @@ public class UserDaoImpl implements UserDao<User> {
         this.datasource = datasource;
     }
 
-
     @Override
     public Long create(User user) {
         String query_text = "INSERT INTO Users (login, password, name, surname, isBlocked, user_type) VALUES (?, ?, ?, ?, ?, ?)";
@@ -71,7 +70,6 @@ public class UserDaoImpl implements UserDao<User> {
             return null;
         }
     }
-    //TODO: Optional for one returned object in case with collection return empty collection
 
     @Override
     public boolean update(User user) {
@@ -197,5 +195,4 @@ public class UserDaoImpl implements UserDao<User> {
         }
         return users;
     }
-
 }

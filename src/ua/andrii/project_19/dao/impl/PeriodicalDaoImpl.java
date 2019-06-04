@@ -33,7 +33,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
 
             statement.executeUpdate();
             ResultSet result = statement.getGeneratedKeys();
-            if(result.next()) {
+            if (result.next()) {
                 long id = result.getLong(1);
                 periodical.setId(id);
                 return id;
@@ -119,7 +119,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
             Long publisher_id = result.getLong("periodical.publisher_id");
             String publisherName = result.getString("publisher.name");
 
-            Publisher publisher = new Publisher(publisherName);
+            Publisher publisher = new Publisher.Builder().withName(publisherName).build();
             publisher.setId(publisher_id);
             BigDecimal price = result.getBigDecimal("periodical.price");
 

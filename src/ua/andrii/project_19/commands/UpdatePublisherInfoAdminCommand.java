@@ -35,7 +35,6 @@ public class UpdatePublisherInfoAdminCommand extends Command {
         String publisherName = request.getParameter("publisher_name");
         newPublisher.setName(publisherName);
 
-
         try {
             boolean result = adminService.updatePublisher(newPublisher);
             if (result) {

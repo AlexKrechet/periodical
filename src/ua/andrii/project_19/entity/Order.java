@@ -11,20 +11,48 @@ public class Order {
     private User user;
     private Timestamp purchaseDate;
     private boolean paid;
-    private BigDecimal total_price = new BigDecimal("0.00").setScale(2, BigDecimal.ROUND_CEILING);
+    private BigDecimal totalPrice = new BigDecimal("0.00").setScale(2, BigDecimal.ROUND_CEILING);
 
+
+    public static class Builder {
+        private Order newOrder;
+
+        public Builder() {
+            newOrder = new Order();
+        }
+
+        public Builder withListPeriodicals(List<PeriodicalOrder> periodicalOrders) {
+            newOrder.periodicalOrders = periodicalOrders;
+            return this;
+        }
+
+        public Builder withUser(User user) {
+            newOrder.user = user;
+            return this;
+        }
+
+        public Builder withTimestamp(Timestamp purchaseDate) {
+            newOrder.purchaseDate = purchaseDate;
+            return this;
+        }
+
+        public Builder withPaidStatus(boolean paid) {
+            newOrder.paid = paid;
+            return this;
+        }
+
+        public Builder withPrice(BigDecimal totalPrice) {
+            newOrder.totalPrice = totalPrice;
+            return this;
+        }
+
+        public Order build() {
+            return newOrder;
+        }
+    }
 
     public Order() {
         purchaseDate = new Timestamp(new Date().getTime());
-    }
-
-    public Order(List<PeriodicalOrder> periodicalOrders, User user, Timestamp purchaseDate, boolean paid, BigDecimal total_price) {
-        this();
-        this.periodicalOrders = periodicalOrders;
-        this.user = user;
-        this.purchaseDate = purchaseDate;
-        this.paid = paid;
-        this.total_price = total_price;
     }
 
     public long getId() {
@@ -39,12 +67,12 @@ public class Order {
         return user;
     }
 
-    public BigDecimal getTotal_price() {
-        return total_price;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal_price(BigDecimal total_price) {
-        this.total_price = total_price;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public void setUser(User user) {
@@ -98,12 +126,12 @@ public class Order {
                 ", user=" + user +
                 ", purchaseDate=" + purchaseDate +
                 ", paid=" + paid +
-                ", total_price=" + total_price +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 
     public String getPresentation() {
 
-        return getId() + " | " + getPurchaseDate() + " | " + getUser().getId() + " | " + getUser().getFullName() + " | " + (isPaid() ? " PAID " : " NOT PAID ") + " | " + getTotal_price();
+        return getId() + " | " + getPurchaseDate() + " | " + getUser().getId() + " | " + getUser().getFullName() + " | " + (isPaid() ? " PAID " : " NOT PAID ") + " | " + getTotalPrice();
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
+        //To check and demonstrate application features separately
         DataSource datasource;
 
         PoolProperties p = new PoolProperties();
@@ -44,7 +44,7 @@ public class Main {
         datasource = new org.apache.tomcat.jdbc.pool.DataSource();
         datasource.setPoolProperties(p);
 
-        Publisher publisher = new Publisher("Publisher");
+        Publisher publisher = new Publisher.Builder().withName("Publisher").build();
         ItemsDao<Publisher> publisherDao = new PublisherDaoImpl(datasource);
         System.out.println(publisher);
         System.out.println(publisherDao.create(publisher));
@@ -87,8 +87,8 @@ public class Main {
         System.out.println(periodicalDao.findAll());
 
         Order order = new Order();
-        PeriodicalOrder periodicalOrder = new PeriodicalOrder(periodical, 1);
-        PeriodicalOrder periodicalOrder2 = new PeriodicalOrder(periodical2, 2);
+        PeriodicalOrder periodicalOrder = new PeriodicalOrder.Builder().withPeriodical(periodical).withQuantity(1).build();
+        PeriodicalOrder periodicalOrder2 = new PeriodicalOrder.Builder().withPeriodical(periodical2).withQuantity(2).build();
         List<PeriodicalOrder> periodicalOrders = new ArrayList<>();
         periodicalOrders.add(periodicalOrder);
         periodicalOrders.add(periodicalOrder2);
@@ -97,7 +97,7 @@ public class Main {
         order.setPaid(false);
         BigDecimal sum = new BigDecimal(300.95);
 
-        order.setTotal_price(sum);
+        order.setTotalPrice(sum);
 
         ItemsDao<Order> orderDao = new OrderDaoImpl(datasource);
         orderDao.create(order);
@@ -105,7 +105,6 @@ public class Main {
         //System.out.println(orderDao.delete(order));
         Order order2 = orderDao.read(1L);
         System.out.println(order2);
-
 
         datasource.close();
     }

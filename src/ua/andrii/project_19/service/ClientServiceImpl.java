@@ -48,11 +48,11 @@ public class ClientServiceImpl implements ClientService {
             }
         }
 
-        //Checking totalPrice for negative inappropriate value
+        //Checking total price for negative inappropriate value
         if (totalPrice.compareTo(BigDecimal.ZERO) <= 0) {
             throw new WrongOrderDataException("Price is invalid!");
         }
-        Order order = new Order(periodicalOrder, user, new Timestamp(new Date().getTime()), false, totalPrice);
+        Order order = new Order.Builder().withListPeriodicals(periodicalOrder).withUser(user).withTimestamp(new Timestamp(new Date().getTime())).withPaidStatus(false).withPrice(totalPrice).build();
 
         return orderDao.create(order) != null;
     }

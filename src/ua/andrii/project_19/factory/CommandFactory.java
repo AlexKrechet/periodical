@@ -58,7 +58,6 @@ public class CommandFactory {
 
 
         commands.put("LOGOUT", new LogOutCommand());
-
     }
 
     private CommandFactory() {
