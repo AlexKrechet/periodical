@@ -31,7 +31,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
 
     @Override
     public Long create(Order order) {
-        String query_text = "INSERT INTO orders (total_price, purchase_date, user_id, paid) VALUES (?, ?, ?, ?)";//TODO: Constants everywhere if possible
+        String query_text = "INSERT INTO orders (total_price, purchase_date, user_id, paid) VALUES (?, ?, ?, ?)";
         logger.info(query_text);
         Long id = null;
 
