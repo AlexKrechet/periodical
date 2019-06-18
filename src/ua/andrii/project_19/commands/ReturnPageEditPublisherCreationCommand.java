@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 
 public class ReturnPageEditPublisherCreationCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public ReturnPageEditPublisherCreationCommand(AdminService adminService) {
@@ -21,8 +21,8 @@ public class ReturnPageEditPublisherCreationCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        logger.debug("ReturnPagePublisherCreationCommand()");
-        List publishersList = adminService.getPublishers();
+        LOGGER.debug("ReturnPagePublisherCreationCommand()");
+        List<Publisher> publishersList = adminService.getPublishers();
         request.setAttribute("publisherslist", publishersList);
 
         Publisher newPublisher = getPublisherFromRequest(request);

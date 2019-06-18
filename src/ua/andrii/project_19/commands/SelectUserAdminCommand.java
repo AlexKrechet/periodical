@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 
 public class SelectUserAdminCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(LogOutCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(LogOutCommand.class);
     private final AdminService adminService;
 
     public SelectUserAdminCommand(AdminService adminService) {
@@ -23,10 +23,10 @@ public class SelectUserAdminCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(true);
-        logger.debug("SelectUserAdminCommand");
+        LOGGER.debug("SelectUserAdminCommand");
 
         User user = (User) session.getAttribute("user");
-        List usersList = adminService.getUsers();
+        List<User> usersList = adminService.getUsers();
         request.setAttribute("userslist", usersList);
 
         User newUser = GetUserFromRequest(request);

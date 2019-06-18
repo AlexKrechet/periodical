@@ -1,6 +1,7 @@
 package ua.andrii.project_19.commands;
 
 import org.apache.log4j.Logger;
+import ua.andrii.project_19.entity.Publisher;
 import ua.andrii.project_19.exception.WrongPublisherDataException;
 import ua.andrii.project_19.service.AdminService;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class AddNewPublisherCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public AddNewPublisherCommand(AdminService adminService) {
@@ -19,13 +20,13 @@ public class AddNewPublisherCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("AddNewPublisherCommand()");
+        LOGGER.debug("AddNewPublisherCommand()");
 
         String name = request.getParameter("name");
         try {
             boolean result = adminService.addNewPublisher(name);
             if (result) {
-                List publishersList = adminService.getPublishers();
+                List<Publisher> publishersList = adminService.getPublishers();
                 request.setAttribute("publisherslist", publishersList);
                 request.setAttribute("message", "Publisher creation is successful. " + name + " is added");
                 return "/publisher.jsp";
@@ -37,7 +38,7 @@ public class AddNewPublisherCommand extends Command {
             request.setAttribute("error", e.getMessage());
         }
 
-        List publishersList = adminService.getPublishers();
+        List<Publisher> publishersList = adminService.getPublishers();
         request.setAttribute("publisherslist", publishersList);
         return "/publisher_create_new.jsp";
     }

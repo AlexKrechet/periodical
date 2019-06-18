@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class UpdatePeriodicalInfoAdminCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(LogOutCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(LogOutCommand.class);
     private final AdminService adminService;
 
     public UpdatePeriodicalInfoAdminCommand(AdminService adminService) {
@@ -30,7 +30,7 @@ public class UpdatePeriodicalInfoAdminCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(true);
-        logger.debug("UpdatePeriodicalInfoAdminCommand");
+        LOGGER.debug("UpdatePeriodicalInfoAdminCommand");
 
         User user = (User) session.getAttribute("user");
         List periodicalsList = adminService.getPeriodicals();

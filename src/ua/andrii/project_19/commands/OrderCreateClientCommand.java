@@ -1,6 +1,7 @@
 package ua.andrii.project_19.commands;
 
 import org.apache.log4j.Logger;
+import ua.andrii.project_19.entity.Periodical;
 import ua.andrii.project_19.service.AdminService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class OrderCreateClientCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public OrderCreateClientCommand(AdminService adminService) {
@@ -20,14 +21,14 @@ public class OrderCreateClientCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("OrderCreateClientCommand()");
+        LOGGER.debug("OrderCreateClientCommand()");
         HttpSession session = request.getSession(true);
         List buyList = (List) session.getAttribute("shoppingcart");
         buyList = new ArrayList();
         buyList.clear();
         session.setAttribute("shoppingcart", buyList);
 
-        List periodicalsList = adminService.getPeriodicals();
+        List<Periodical> periodicalsList = adminService.getPeriodicals();
         request.setAttribute("periodicalslist", periodicalsList);
 
         return "/order.jsp";

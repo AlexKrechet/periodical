@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PublisherDaoImpl implements ItemsDao<Publisher> {
 
-    private static final Logger logger = Logger.getLogger(PublisherDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(PublisherDaoImpl.class);
     private DataSource datasource;
     private final static String SQL_BASE_QUERY_SELECTION_TEXT = "SELECT * FROM publisher";
 
@@ -23,7 +23,7 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
     @Override
     public Long create(Publisher publisher) {
         String query_text = "INSERT INTO publisher (name) VALUES (?)";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS);) {
             statement.setString(1, publisher.getName());
 
@@ -37,7 +37,7 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
                 return null;
             }
         } catch (SQLException e) {
-            logger.error("Failed to insert into publishers! " + e.getMessage());
+            LOGGER.error("Failed to insert into publishers! " + e.getMessage());
             return null;
         }
     }
@@ -45,7 +45,7 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
     @Override
     public Publisher read(Long id) {
         String query_text = SQL_BASE_QUERY_SELECTION_TEXT + " WHERE id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
@@ -57,7 +57,7 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
                 return null;
             }
         } catch (SQLException e) {
-            logger.error("Failed to read from publishers! " + e.getMessage());
+            LOGGER.error("Failed to read from publishers! " + e.getMessage());
             return null;
         }
     }
@@ -65,13 +65,13 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
     @Override
     public boolean update(Publisher publisher) {
         String query_text = "UPDATE publisher SET name = ? WHERE id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setString(1, publisher.getName());
             statement.setLong(2, publisher.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            logger.error("Failed to updated publishers! " + e.getMessage());
+            LOGGER.error("Failed to updated publishers! " + e.getMessage());
             return false;
         }
     }
@@ -79,13 +79,13 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
     @Override
     public boolean delete(Publisher publisher) {
         String query_text = "DELETE FROM publisher WHERE id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setLong(1, publisher.getId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            logger.error("Failed to delete from publishers! " + e.getMessage());
+            LOGGER.error("Failed to delete from publishers! " + e.getMessage());
             return false;
         }
     }
@@ -93,13 +93,13 @@ public class PublisherDaoImpl implements ItemsDao<Publisher> {
     @Override
     public List<Publisher> findAll() {
         String query_text = SQL_BASE_QUERY_SELECTION_TEXT;
-        logger.info(query_text);
+        LOGGER.info(query_text);
         List<Publisher> publishers = new ArrayList<>();
         try (Connection connection = datasource.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery(query_text);
             publishers = getPublisherFromResultSet(result);
         } catch (SQLException e) {
-            logger.error("Failed to read from publishers! " + e.getMessage());
+            LOGGER.error("Failed to read from publishers! " + e.getMessage());
         }
         return publishers;
     }

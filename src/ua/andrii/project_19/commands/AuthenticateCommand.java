@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AuthenticateCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public AuthenticateCommand(AdminService adminService) {
@@ -19,7 +19,7 @@ public class AuthenticateCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("AuthenticateCommand()");
+        LOGGER.debug("AuthenticateCommand()");
         User user = null;
         try {
             user = adminService.login(request.getParameter("user_name"), request.getParameter("password"));

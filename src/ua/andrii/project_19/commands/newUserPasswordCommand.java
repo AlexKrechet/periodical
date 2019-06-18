@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 public class newUserPasswordCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public newUserPasswordCommand(AdminService adminService) {
@@ -20,7 +20,7 @@ public class newUserPasswordCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("newUserPasswordCommand");
+        LOGGER.debug("newUserPasswordCommand");
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
 

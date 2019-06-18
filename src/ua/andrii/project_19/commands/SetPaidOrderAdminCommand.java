@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class SetPaidOrderAdminCommand extends Command {
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public SetPaidOrderAdminCommand(AdminService adminService) {
@@ -20,10 +20,10 @@ public class SetPaidOrderAdminCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("SetPaidOrderAdminCommand()");
+        LOGGER.debug("SetPaidOrderAdminCommand()");
         HttpSession session = request.getSession(true);
 
-        List ordersList = (List) session.getAttribute("orderslist");
+        List<Order> ordersList = (List) session.getAttribute("orderslist");
 
         String del = request.getParameter("paidindex");
         int index = (new Integer(del)).intValue();

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class AddToCartCommand extends Command {
-    private static final Logger logger = Logger.getLogger(ClientService.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientService.class);
     private final ClientService clientService;
 
     public AddToCartCommand(ClientService clientService) {
@@ -25,7 +25,7 @@ public class AddToCartCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("AddToCartCommand");
+        LOGGER.debug("AddToCartCommand");
         HttpSession session = request.getSession(true);
 
         List buylist = (List) session.getAttribute("shoppingcart");

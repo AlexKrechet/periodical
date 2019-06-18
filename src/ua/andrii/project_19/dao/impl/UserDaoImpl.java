@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao<User> {
     public Long create(User user) {
         String query_text = "INSERT INTO Users (login, password, name, surname, isBlocked, user_type) VALUES (?, ?, ?, ?, ?, ?)";
         logger.info(query_text);
-        try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS);) {
+        try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());

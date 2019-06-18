@@ -16,12 +16,12 @@ import java.util.ResourceBundle;
 
 
 public class ShoppingServlet extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(ShoppingServlet.class);
+    private static final Logger LOGGER = Logger.getLogger(ShoppingServlet.class);
     private ResourceBundle servletProperties = ResourceBundle.getBundle("resource.servlet_config");
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.debug("POST request: " + request.getPathInfo());
+        LOGGER.debug("POST request: " + request.getPathInfo());
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         handleRequest(request, response);
@@ -29,7 +29,7 @@ public class ShoppingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.debug("GET request: " + request.getPathInfo());
+        LOGGER.debug("GET request: " + request.getPathInfo());
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         handleRequest(request, response);
@@ -49,7 +49,7 @@ public class ShoppingServlet extends HttpServlet {
         String result;
 
         String action = request.getParameter("action");
-        logger.debug("Action: " + action);
+        LOGGER.debug("Action: " + action);
         request.setAttribute("action", action);
         Command command = CommandFactory.getCommand(action);
 
@@ -58,7 +58,7 @@ public class ShoppingServlet extends HttpServlet {
             result = "/error404.jsp";
         }
 
-        logger.debug("Command: " + command);
+        LOGGER.debug("Command: " + command);
         result = command.execute(request, response);
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/jsp" + result);

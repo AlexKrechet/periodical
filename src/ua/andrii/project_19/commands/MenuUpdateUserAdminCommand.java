@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MenuUpdateUserAdminCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(LogOutCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(LogOutCommand.class);
     private final AdminService adminService;
 
     public MenuUpdateUserAdminCommand(AdminService adminService) {
@@ -23,7 +23,7 @@ public class MenuUpdateUserAdminCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(true);
-        logger.debug("MenuUpdateUserAdminCommand");
+        LOGGER.debug("MenuUpdateUserAdminCommand");
 
         User user = (User) session.getAttribute("user");
         User newUser = user;

@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 
 public class ReturnPageEditPeriodicalCreationCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public ReturnPageEditPeriodicalCreationCommand(AdminService adminService) {
@@ -23,9 +23,9 @@ public class ReturnPageEditPeriodicalCreationCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        logger.debug("ReturnPageEditPeriodicalCreationCommand()");
-        List periodicalsList = adminService.getPeriodicals();
-        List publishersList = adminService.getPublishers();
+        LOGGER.debug("ReturnPageEditPeriodicalCreationCommand()");
+        List<Periodical> periodicalsList = adminService.getPeriodicals();
+        List<Publisher> publishersList = adminService.getPublishers();
 
         Periodical newPeriodical = GetPeriodicalFromRequest(request);
         publishersList = deletePublisherFromList(publishersList, newPeriodical.getPublisher());

@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UserPasswordChangeCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("UserPasswordChangeCommand()");
+        LOGGER.debug("UserPasswordChangeCommand()");
         User user = (User) request.getSession().getAttribute("user");
 
         return "/user_edit_password.jsp";

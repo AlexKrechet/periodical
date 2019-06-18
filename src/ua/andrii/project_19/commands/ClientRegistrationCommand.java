@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ClientRegistrationCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        logger.debug("ClientRegistrationCommand()");
+        LOGGER.debug("ClientRegistrationCommand()");
         User user = (User) request.getSession().getAttribute("user");
 
         if ((user != null) && (user.getUserType() == UserType.ADMIN)) {

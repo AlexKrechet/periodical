@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UserInfoCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("UserInfoCommand()");
+        LOGGER.debug("UserInfoCommand()");
         User user = (User) request.getSession().getAttribute("user");
 
         return "/admin_page.jsp";

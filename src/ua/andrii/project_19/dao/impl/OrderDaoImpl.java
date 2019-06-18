@@ -15,7 +15,7 @@ import java.util.List;
 
 public class OrderDaoImpl implements ItemsDao<Order> {
 
-    private static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
     private DataSource datasource;
     private final String SQL_BASE_QUERY_SELECTION_TEXT = "SELECT orders.*, users.*, periodical.*, periodical_orders.*, publisher.* " +
             "FROM orders " +
@@ -32,7 +32,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
     @Override
     public Long create(Order order) {
         String query_text = "INSERT INTO orders (total_price, purchase_date, user_id, paid) VALUES (?, ?, ?, ?)";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         Long id = null;
 
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS)) {
@@ -50,13 +50,13 @@ public class OrderDaoImpl implements ItemsDao<Order> {
                 boolean resultCreatePeriodicalOrderList = createPeriodicalOrderList(connection, order, order.getPeriodicalOrders());
                 if (!resultCreatePeriodicalOrderList) {
                     connection.rollback();
-                    logger.error("Error occurred while creating periodicalOrders list");
+                    LOGGER.error("Error occurred while creating periodicalOrders list");
                 }
             }
             connection.commit();
             return id;
         } catch (SQLException e) {
-            logger.error("Failed to insert into Orders! " + e.getMessage());
+            LOGGER.error("Failed to insert into Orders! " + e.getMessage());
             return null;
         }
     }
@@ -71,7 +71,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
 
     private int createPeriodicalOrder(Connection connection, Order order, Periodical periodical, int periodicalQuantity) {
         String query_text = "INSERT INTO periodical_orders (periodical_id, orders_id, periodical_quantity) VALUES (?, ?, ?)";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, periodical.getId());
             statement.setLong(2, order.getId());
@@ -79,7 +79,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
 
             return statement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Failed to insert into Periodical_orders! " + e.getMessage());
+            LOGGER.error("Failed to insert into Periodical_orders! " + e.getMessage());
             return -1;
         }
     }
@@ -87,7 +87,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
     @Override
     public Order read(Long id) {
         String query_text = SQL_BASE_QUERY_SELECTION_TEXT + " WHERE orders.id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
@@ -100,7 +100,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
                 return null;
             }
         } catch (SQLException e) {
-            logger.error("Failed to read from Orders! " + e.getMessage());
+            LOGGER.error("Failed to read from Orders! " + e.getMessage());
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
     @Override
     public boolean update(Order order) {
         String query_text = "UPDATE orders SET total_price = ?, purchase_date = ?, user_id = ?, paid = ? WHERE id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
 
             statement.setBigDecimal(1, order.getTotalPrice());
@@ -121,7 +121,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
 
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            logger.error("Failed to updated Orders! " + e.getMessage());
+            LOGGER.error("Failed to updated Orders! " + e.getMessage());
 
             return false;
         }
@@ -130,7 +130,7 @@ public class OrderDaoImpl implements ItemsDao<Order> {
     @Override
     public boolean delete(Order order) {
         String query_text = "DELETE orders, periodical_orders FROM orders LEFT JOIN periodical_orders as periodical_orders ON orders_id = id WHERE orders.id= ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS)) {
             connection.setAutoCommit(false);
             statement.setLong(1, order.getId());
@@ -138,12 +138,12 @@ public class OrderDaoImpl implements ItemsDao<Order> {
 
             if (!(resultDeleteOrders > 0)) {
                 connection.rollback();
-                logger.error("Error occurred while deleting Orders, periodicalOrders lists");
+                LOGGER.error("Error occurred while deleting Orders, periodicalOrders lists");
             }
             connection.commit();
             return true;
         } catch (SQLException e) {
-            logger.error("Failed to delete from Orders! " + e.getMessage());
+            LOGGER.error("Failed to delete from Orders! " + e.getMessage());
             return false;
         }
     }
@@ -152,13 +152,13 @@ public class OrderDaoImpl implements ItemsDao<Order> {
     public List<Order> findAll() {
 
         String query_text = "SELECT orders.*, users.* FROM orders LEFT JOIN users AS users ON users.id = orders.user_id";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         List<Order> orders = new ArrayList<>();
         try (Connection connection = datasource.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery(query_text);
             orders = getOrderFromResultSetSimple(result);
         } catch (SQLException e) {
-            logger.error("Failed to read from Orders! " + e.getMessage());
+            LOGGER.error("Failed to read from Orders! " + e.getMessage());
         }
         return orders;
     }

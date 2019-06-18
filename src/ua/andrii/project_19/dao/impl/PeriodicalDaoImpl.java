@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
 
-    private static final Logger logger = Logger.getLogger(PeriodicalDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(PeriodicalDaoImpl.class);
     private DataSource datasource;
     private final String SQL_BASE_QUERY_SELECTION_TEXT = "SELECT periodical.*, publisher.* FROM Periodical as periodical LEFT JOIN Publisher as publisher ON periodical.publisher_id = publisher.id";
 
@@ -25,7 +25,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
     @Override
     public Long create(Periodical periodical) {
         String query_text = "INSERT INTO periodical (name, publisher_id, price) VALUES (?, ?, ?)";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text, Statement.RETURN_GENERATED_KEYS);) {
             statement.setString(1, periodical.getName());
             statement.setLong(2, periodical.getPublisher().getId());
@@ -41,7 +41,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
                 return null;
             }
         } catch (SQLException e) {
-            logger.error("Failed to insert into Periodical! " + e.getMessage());
+            LOGGER.error("Failed to insert into Periodical! " + e.getMessage());
             return null;
         }
     }
@@ -49,7 +49,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
     @Override
     public Periodical read(Long id) {
         String query_text = SQL_BASE_QUERY_SELECTION_TEXT + " WHERE periodical.id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
@@ -61,7 +61,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
                 return null;
             }
         } catch (SQLException e) {
-            logger.error("Failed to read from Periodical! " + e.getMessage());
+            LOGGER.error("Failed to read from Periodical! " + e.getMessage());
             return null;
         }
     }
@@ -69,7 +69,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
     @Override
     public boolean update(Periodical periodical) {
         String query_text = "UPDATE periodical SET name = ?, publisher_id = ?, price = ? WHERE id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setString(1, periodical.getName());
             statement.setLong(2, periodical.getPublisher().getId());
@@ -77,7 +77,7 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
             statement.setLong(4, periodical.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            logger.error("Failed to updated Periodical! " + e.getMessage());
+            LOGGER.error("Failed to updated Periodical! " + e.getMessage());
             return false;
         }
     }
@@ -85,13 +85,13 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
     @Override
     public boolean delete(Periodical periodical) {
         String query_text = "DELETE FROM periodical WHERE id = ?";
-        logger.info(query_text);
+        LOGGER.info(query_text);
         try (Connection connection = datasource.getConnection(); PreparedStatement statement = connection.prepareStatement(query_text)) {
             statement.setLong(1, periodical.getId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            logger.error("Failed to delete from periodical! " + e.getMessage());
+            LOGGER.error("Failed to delete from periodical! " + e.getMessage());
             return false;
         }
     }
@@ -99,13 +99,13 @@ public class PeriodicalDaoImpl implements ItemsDao<Periodical> {
     @Override
     public List<Periodical> findAll() {
         String query_text = SQL_BASE_QUERY_SELECTION_TEXT;
-        logger.info(query_text);
+        LOGGER.info(query_text);
         List<Periodical> periodicals = new ArrayList<>();
         try (Connection connection = datasource.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery(query_text);
             periodicals = getPeriodicalFromResultSet(result);
         } catch (SQLException e) {
-            logger.error("Failed to read from periodical! " + e.getMessage());
+            LOGGER.error("Failed to read from periodical! " + e.getMessage());
         }
         return periodicals;
     }

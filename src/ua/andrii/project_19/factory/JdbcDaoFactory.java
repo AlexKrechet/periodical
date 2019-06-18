@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 public class JdbcDaoFactory extends DaoFactory {
 
-    private static final Logger logger = Logger.getLogger(JdbcDaoFactory.class);
+    private static final Logger LOGGER = Logger.getLogger(JdbcDaoFactory.class);
     private static JdbcDaoFactory instance;
     private UserDao<User> userDao;
     private ItemsDao<Periodical> periodicalDao;
@@ -35,7 +35,7 @@ public class JdbcDaoFactory extends DaoFactory {
             orderDao = new OrderDaoImpl(datasource);
 
         } catch (NamingException e) {
-            logger.error("Failed to initialize context: " + e.getMessage());
+            LOGGER.error("Failed to initialize context: " + e.getMessage());
         }
     }
 

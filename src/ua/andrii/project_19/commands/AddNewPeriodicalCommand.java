@@ -1,6 +1,7 @@
 package ua.andrii.project_19.commands;
 
 import org.apache.log4j.Logger;
+import ua.andrii.project_19.entity.Periodical;
 import ua.andrii.project_19.entity.Publisher;
 import ua.andrii.project_19.exception.WrongPeriodicalDataException;
 import ua.andrii.project_19.service.AdminService;
@@ -13,7 +14,8 @@ import java.util.StringTokenizer;
 
 public class AddNewPeriodicalCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
+    public static final String PERIODICAL_PUBLISHERS_LIST = "periodical_publisherslist";
     private final AdminService adminService;
 
     public AddNewPeriodicalCommand(AdminService adminService) {
@@ -22,7 +24,7 @@ public class AddNewPeriodicalCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("AddNewPeriodicalCommand()");
+        LOGGER.debug("AddNewPeriodicalCommand()");
 
         String periodical_name = request.getParameter("periodical_name");
         String periodical_price = request.getParameter("periodical_price");
@@ -31,9 +33,9 @@ public class AddNewPeriodicalCommand extends Command {
         try {
             boolean result = adminService.addNewPeriodical(periodical_name, periodical_publisher.getId(), new BigDecimal(periodical_price));
             if (result) {
-                List periodicalsList = adminService.getPeriodicals();
-                List publishersList = adminService.getPublishers();
-                request.setAttribute("periodical_publisherslist", publishersList);
+                List<Periodical> periodicalsList = adminService.getPeriodicals();
+                List<Publisher> publishersList = adminService.getPublishers();
+                request.setAttribute(PERIODICAL_PUBLISHERS_LIST, publishersList);
                 request.setAttribute("periodicallist", periodicalsList);
                 request.setAttribute("message", "Periodical creation is successful. " + periodical_name + " is added");
                 return "/periodical.jsp";
@@ -47,7 +49,7 @@ public class AddNewPeriodicalCommand extends Command {
 
         List periodicalsList = adminService.getPeriodicals();
         List publishersList = adminService.getPublishers();
-        request.setAttribute("periodical_publisherslist", publishersList);
+        request.setAttribute(PERIODICAL_PUBLISHERS_LIST, publishersList);
         request.setAttribute("periodicalslist", periodicalsList);
         return "/periodical_create_new.jsp";
     }
@@ -57,6 +59,6 @@ public class AddNewPeriodicalCommand extends Command {
         StringTokenizer t = new StringTokenizer(items, "|");
         String itemId = t.nextToken();
 
-        return adminService.getPublisher(new Long(itemId.trim()).longValue());
+        return adminService.getPublisher(new Long(itemId.trim()));
     }
 }

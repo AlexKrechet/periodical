@@ -8,12 +8,12 @@ import javax.servlet.http.HttpSession;
 
 public class LogOutCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(LogOutCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(LogOutCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        logger.debug("LogOutCommand");
+        LOGGER.debug("LogOutCommand");
         session.removeAttribute("user");
         session.invalidate();
         return "/index.jsp";

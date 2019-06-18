@@ -10,7 +10,7 @@ import java.util.Locale;
 
 public class LocalizationFilter implements Filter {
 
-    private static final Logger logger = Logger.getLogger(LocalizationFilter.class);
+    private static final Logger LOGGER = Logger.getLogger(LocalizationFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -30,10 +30,10 @@ public class LocalizationFilter implements Filter {
 
         String lang = request.getParameter("lang");
 
-        logger.debug(lang);
+        LOGGER.debug(lang);
         if (lang != null && !lang.isEmpty()) {
             HttpSession session = req.getSession(true);
-            logger.debug("lang = " + lang);
+            LOGGER.debug("lang = " + lang);
             if (lang.equals("rus")) {
                 session.setAttribute("locale", new Locale("ru", "UA"));
             } else {

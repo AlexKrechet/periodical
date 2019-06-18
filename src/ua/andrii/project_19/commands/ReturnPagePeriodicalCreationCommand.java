@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ReturnPagePeriodicalCreationCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public ReturnPagePeriodicalCreationCommand(AdminService adminService) {
@@ -19,7 +19,7 @@ public class ReturnPagePeriodicalCreationCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        logger.debug("ReturnPagePeriodicalCreationCommand()");
+        LOGGER.debug("ReturnPagePeriodicalCreationCommand()");
         List periodicalsList = adminService.getPeriodicals();
         List publishersList = adminService.getPublishers();
         request.setAttribute("periodical_publisherslist", publishersList);

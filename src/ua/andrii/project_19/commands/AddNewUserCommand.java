@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AddNewUserCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(AdminService.class);
+    private static final Logger LOGGER = Logger.getLogger(AdminService.class);
     private final AdminService adminService;
 
     public AddNewUserCommand(AdminService adminService) {
@@ -19,7 +19,7 @@ public class AddNewUserCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("AddNewUserCommand");
+        LOGGER.debug("AddNewUserCommand");
         UserType userType;
         userType = UserType.valueOf(request.getParameter("user_type").toUpperCase());
         String login = request.getParameter("login");

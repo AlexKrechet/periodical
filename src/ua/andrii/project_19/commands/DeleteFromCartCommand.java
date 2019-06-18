@@ -1,6 +1,7 @@
 package ua.andrii.project_19.commands;
 
 import org.apache.log4j.Logger;
+import ua.andrii.project_19.entity.Periodical;
 import ua.andrii.project_19.service.ClientService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class DeleteFromCartCommand extends Command {
-    private static final Logger logger = Logger.getLogger(ClientService.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientService.class);
     private final ClientService clientService;
 
     public DeleteFromCartCommand(ClientService clientService) {
@@ -18,7 +19,7 @@ public class DeleteFromCartCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("DeleteFromCartCommand()");
+        LOGGER.debug("DeleteFromCartCommand()");
         HttpSession session = request.getSession(true);
 
         List buylist =
@@ -30,7 +31,7 @@ public class DeleteFromCartCommand extends Command {
 
         session.setAttribute("shoppingcart", buylist);
 
-        List periodicalsList = clientService.getPeriodicals();
+        List<Periodical> periodicalsList = clientService.getPeriodicals();
         request.setAttribute("periodicalslist", periodicalsList);
         return "/order.jsp";
     }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UpdatePublisherInfoAdminCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(LogOutCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(LogOutCommand.class);
     private final AdminService adminService;
 
     public UpdatePublisherInfoAdminCommand(AdminService adminService) {
@@ -24,10 +24,10 @@ public class UpdatePublisherInfoAdminCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(true);
-        logger.debug("UpdatePublisherInfoAdminCommand");
+        LOGGER.debug("UpdatePublisherInfoAdminCommand");
 
         User user = (User) session.getAttribute("user");
-        List publishersList = adminService.getPublishers();
+        List<Publisher> publishersList = adminService.getPublishers();
         request.setAttribute("publisherslist", publishersList);
 
         String publisherId = request.getParameter("publisher_id");
